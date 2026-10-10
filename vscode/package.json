@@ -1,0 +1,28 @@
+{
+  "name": "code-atlas",
+  "displayName": "Code Atlas — Python & C Map",
+  "description": "Open a visual call map beside Python and C code with Ctrl+Shift+V.",
+  "version": "0.1.0",
+  "publisher": "cat21",
+  "license": "MIT",
+  "engines": { "vscode": "^1.90.0" },
+  "main": "./out/extension.cjs",
+  "categories": ["Visualization", "Other"],
+  "keywords": ["Python", "C", "STM32", "robotics", "call graph", "code map"],
+  "activationEvents": ["onCommand:codeAtlas.openMap"],
+  "contributes": {
+    "commands": [{ "command": "codeAtlas.openMap", "title": "Code Atlas: Open Code Map", "category": "Code Atlas" }],
+    "menus": {
+      "editor/title": [{ "command": "codeAtlas.openMap", "when": "resourceExtname == .py || resourceExtname == .c || resourceExtname == .h", "group": "navigation@9" }],
+      "explorer/context": [{ "command": "codeAtlas.openMap", "when": "resourceExtname == .py || resourceExtname == .c || resourceExtname == .h", "group": "navigation@9" }]
+    },
+    "keybindings": [{ "command": "codeAtlas.openMap", "key": "ctrl+shift+v", "mac": "cmd+shift+v", "when": "editorTextFocus && (editorLangId == python || editorLangId == c || resourceExtname == .h)" }],
+    "configuration": {
+      "title": "Code Atlas",
+      "properties": {
+        "codeAtlas.autoRefresh": { "type": "boolean", "default": true, "description": "Refresh the map after edits to open Python/C documents." }
+      }
+    }
+  },
+  "scripts": { "package": "npx @vscode/vsce package --no-dependencies --allow-missing-repository --out ../artifacts/code-atlas-0.1.0.vsix" }
+}

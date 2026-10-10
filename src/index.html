@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Bản đồ code Python và C cho AI locomotion, Raspberry Pi và STM32. Khám phá các hàm, lời gọi và code gốc ngay trên trình duyệt.">
+  <title>Code Atlas · Hiểu code, từng kết nối</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-button mobile-menu" id="toggle-sidebar" aria-label="Mở danh sách file">☰</button>
+    <a class="brand" href="./" aria-label="Code Atlas"><svg viewBox="0 0 32 32" fill="none"><path d="M9 9h14v14H9zM9 9l14 14M23 9L9 23" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="4" width="9" height="9" rx="2" fill="currentColor"/><rect x="19" y="4" width="9" height="9" rx="2" fill="currentColor"/><rect x="4" y="19" width="9" height="9" rx="2" fill="currentColor"/><rect x="19" y="19" width="9" height="9" rx="2" fill="currentColor"/></svg><span>code<span class="brand-light">atlas</span><sup>LAB</sup></span></a>
+    <div class="top-divider"></div><span class="workspace-label">Robotics workspace</span>
+    <div class="top-actions"><span id="save-status" class="save-status">● Đã lưu trên máy</span><button class="button subtle" id="export-button"><span>↗</span> Xuất bản đồ</button><button class="button primary" id="open-source"><span>＋</span> Mở code <kbd>⌘ K</kbd></button></div>
+  </header>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="project-heading"><span class="eyebrow">KHÔNG GIAN KHÁM PHÁ</span><h1>Hiểu code.<br><span>Thấy kết nối.</span></h1><p>Python & C · từ policy đến motor</p></div>
+      <label class="search"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="search" placeholder="Tìm hàm hoặc file…" aria-label="Tìm hàm hoặc file"><kbd>/</kbd></label>
+      <div class="section-heading"><span>EXPLORER</span><span id="file-count">0 FILES</span></div>
+      <nav id="file-tree" class="file-tree" aria-label="Các file và hàm"></nav>
+      <div class="sidebar-bottom"><div class="section-heading">BẮT ĐẦU VỚI VÍ DỤ</div><button class="sample-card active" data-sample="locomotion"><span class="sample-icon">⌁</span><span><strong>AI locomotion</strong><small>Observe → policy → action</small></span><span>↗</span></button><button class="sample-card" data-sample="stm32"><span class="sample-icon chip">▦</span><span><strong>STM32 control</strong><small>Timer → PID → PWM</small></span><span>↗</span></button><div class="privacy"><span class="status-dot"></span> Code được phân tích trên máy bạn<button id="help-button" class="help-small" aria-label="Hướng dẫn">?</button></div></div>
+    </aside>
+    <main class="main">
+      <div class="map-header"><div class="breadcrumb"><span class="folder-icon">▱</span><span id="project-title">Locomotion · policy → actuator</span><span class="version-chip">BẢN ĐỒ</span></div><button class="button small subtle" id="arrange-button">⌘ Sắp xếp</button></div>
+      <div id="viewport" class="viewport" tabindex="0" aria-label="Canvas bản đồ code. Kéo nền để di chuyển, lăn chuột để thu phóng.">
+        <div class="canvas-top"><div class="view-modes" role="group" aria-label="Chế độ xem"><button data-view="all" class="active">Tất cả</button><button data-view="focus">Liên quan</button><button data-view="entry">Điểm vào / IRQ</button></div><div class="analysis-label"><span class="status-dot"></span> Phân tích tĩnh <button id="diagnostics-button" title="Xem kết quả và giới hạn phân tích" aria-label="Kết quả phân tích">ⓘ</button></div></div>
+        <div id="world" class="world"><svg id="connections" class="connections" width="1" height="1"><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9" fill="none" stroke="#769794" stroke-width="1.5"/></marker><marker id="arrow-active" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9" fill="none" stroke="#83e6bc" stroke-width="1.5"/></marker></defs><g id="edge-layer"></g><g id="ink-layer"></g></svg><div id="group-layer"></div><div id="class-layer"></div><div id="node-layer"></div><div id="note-layer"></div></div>
+        <div id="empty-state" class="empty-state" hidden><span>⌘</span><h2>Chưa tìm thấy hàm</h2><p>Mở file có định nghĩa <code>def</code> hoặc hàm C để tạo bản đồ.<br>File header và cấu hình vẫn có thể đọc từ Explorer.</p><button class="button primary" id="empty-open">Mở code</button></div>
+        <div class="canvas-tools"><button class="tool active" data-tool="select" title="Chọn / kéo (V)" aria-label="Chọn và kéo"><svg viewBox="0 0 24 24"><path d="m5 3 14 10-7 1-3 7z"/></svg></button><button class="tool" data-tool="ink" title="Vẽ ghi chú (D)" aria-label="Vẽ tay"><svg viewBox="0 0 24 24"><path d="m4 20 4-1L20 7l-3-3L5 16zM14 7l3 3"/></svg></button><button class="tool" data-tool="note" title="Thêm ghi chú (N)" aria-label="Thêm ghi chú"><svg viewBox="0 0 24 24"><path d="M4 4h16v11l-5 5H4zM15 20v-5h5M8 9h8M8 13h4"/></svg></button><span class="tool-separator"></span><button class="tool" id="undo-button" title="Hoàn tác (Ctrl Z)" aria-label="Hoàn tác"><svg viewBox="0 0 24 24"><path d="m8 5-5 5 5 5M3 10h11a6 6 0 0 1 0 12" transform="translate(0 -3)"/></svg></button></div>
+        <div class="canvas-legend"><span><i class="legend-line"></i> Lời gọi</span><span><i class="legend-line dashed"></i> Suy ra kiểu</span><span id="map-stats"></span></div>
+        <div class="zoom-controls"><button id="zoom-out" aria-label="Thu nhỏ">−</button><span id="zoom-label">100%</span><button id="zoom-in" aria-label="Phóng to">＋</button><span></span><button id="fit-button" title="Vừa màn hình (F)" aria-label="Vừa màn hình">⛶</button></div>
+        <div id="selection-hint" class="selection-hint">Chọn một hàm để lần theo code <span>·</span> Kéo nền để di chuyển</div>
+      </div>
+      <footer class="statusbar"><span><span class="status-dot"></span> LOCAL ANALYSIS</span><span id="status-detail">Python · C · không chạy code đầu vào</span><button id="shortcuts-button">Phím tắt <kbd>?</kbd></button></footer>
+    </main>
+    <aside id="inspector" class="inspector" hidden></aside>
+  </div>
+  <dialog id="source-dialog" class="source-dialog"><div class="dialog-heading"><div><span class="eyebrow">SOURCE CODE</span><h2>Mở code để khám phá</h2><p>Dán một file, chọn nhiều file hoặc mở thư mục dự án.</p></div><button class="icon-button" data-close="source-dialog" aria-label="Đóng">×</button></div><div class="source-actions"><button class="button" id="upload-files">↑ Chọn file</button><button class="button" id="upload-folder">▱ Mở thư mục</button><button class="button subtle" id="new-file">＋ File trống</button><span>.py &nbsp; .c &nbsp; .h</span></div><div class="source-editor"><div id="source-tabs" class="source-tabs"></div><div class="editor-main"><label class="filename-label">Đường dẫn <input id="filename" aria-label="Tên file" spellcheck="false"></label><textarea id="source-text" aria-label="Nội dung code" spellcheck="false" wrap="off"></textarea></div></div><div id="source-error" class="source-error" role="alert" hidden></div><div class="dialog-footer"><span>Code ở trong trình duyệt của bạn.<br><small>Bản đồ hiện tại được thay khi bạn bấm Phân tích.</small></span><button class="button primary" id="analyze-button">Phân tích code <span>↗</span></button></div></dialog>
+  <dialog id="info-dialog" class="info-dialog"><div class="dialog-heading"><h2 id="info-title">Cách sử dụng</h2><button class="icon-button" data-close="info-dialog" aria-label="Đóng">×</button></div><div id="info-content"></div></dialog>
+  <input id="file-input" type="file" accept=".py,.c,.h,.json" multiple hidden><input id="folder-input" type="file" webkitdirectory multiple hidden>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <div id="loading" class="loading" hidden><span class="spinner"></span> Đang đọc cấu trúc code…</div>
+</body>
+</html>

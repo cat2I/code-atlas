@@ -1,0 +1,8 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+.sites/
+artifacts/
+vscode/out/
+vscode/media/

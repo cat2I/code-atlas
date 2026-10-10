@@ -1,0 +1,23 @@
+{
+  "name": "code-atlas",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:extension": "node scripts/build-extension.mjs",
+    "package:extension": "npm run build:extension && node scripts/package-extension.mjs",
+    "test:extension": "node scripts/extension-e2e.mjs",
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test tests/analyzer.test.mjs"
+  },
+  "dependencies": {
+    "@lezer/cpp": "1.1.6",
+    "@lezer/python": "1.1.19"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@vscode/vsce": "4.0.0",
+    "esbuild": "0.25.12"
+  }
+}
